@@ -17,10 +17,9 @@ class User(BaseModel):
     email: EmailStr
 
 @router.get('/')
-async def test():
-    return {
-        "message" : "testing"
-    }
+async def query(session : AsyncSession = Depends(get_session)):
+    users = session.query(User).all
+    return users
 
 @router.post('/submit_suggestion')
 async def submit_suggestion(suggestion_data : Suggestion,session : AsyncSession = Depends(get_session)):
