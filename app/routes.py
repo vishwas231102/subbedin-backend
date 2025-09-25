@@ -9,11 +9,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter()
 
-class Suggestion(BaseModel):
+class SuggestionValidator(BaseModel):
     email: EmailStr
     suggestion: str
 
-class User(BaseModel):
+class UserValidator(BaseModel):
     name: str
     email: EmailStr
 
@@ -23,7 +23,7 @@ async def query(session : AsyncSession = Depends(get_session)):
     return users
 
 @router.post('/submit_suggestion')
-async def submit_suggestion(suggestion_data : Suggestion,session : AsyncSession = Depends(get_session)):
+async def submit_suggestion(suggestion_data : SuggestionValidator,session : AsyncSession = Depends(get_session)):
     new_suggestion = models.Suggestion(
         id=f"sgn{str(uuid.uuid4())}"[0:10],
         email=suggestion_data.email,
@@ -37,7 +37,7 @@ async def submit_suggestion(suggestion_data : Suggestion,session : AsyncSession 
     }
 
 @router.post('/enroll')
-async def enroll(user_data : User,session : AsyncSession = Depends(get_session)):
+async def enroll(user_data : UserValidator,session : AsyncSession = Depends(get_session)):
     new_user = models.User(
         id=f"usr{str(uuid.uuid4())}"[0:10],
         email=user_data.email,
