@@ -18,7 +18,7 @@ class User(BaseModel):
 
 @router.get('/')
 async def query(session : AsyncSession = Depends(get_session)):
-    users = await session.select(User).all()
+    users = await session.execute(select(User)).all()
     return users
 
 @router.post('/submit_suggestion')
