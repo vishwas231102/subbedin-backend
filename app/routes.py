@@ -19,7 +19,8 @@ class UserValidator(BaseModel):
 
 @router.get('/')
 async def query(session : AsyncSession = Depends(get_session)):
-    users = await session.execute(select(models.User)).all()
+    result = await session.execute(select(models.User))
+    users = result.scalars.all()
     return users
 
 @router.post('/submit_suggestion')
