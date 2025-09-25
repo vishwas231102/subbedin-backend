@@ -17,11 +17,11 @@ class UserValidator(BaseModel):
     name: str
     email: EmailStr
 
-# @router.get('/')
-# async def query(session : AsyncSession = Depends(get_session)):
-#     result = await session.execute(select(models.User))
-#     users = result.scalars().all()
-#     return users
+@router.get('/')
+async def test():
+    return{
+        "message" : "testing"
+    }
 
 # @router.delete("/reset-db")
 # async def reset_db(session: AsyncSession = Depends(get_session)):
