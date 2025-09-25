@@ -1,6 +1,6 @@
 import uuid
 from . import models
-from .database import get_session
+from .database import get_session,engine
 from sqlalchemy.future import select
 from fastapi import APIRouter,Depends
 from pydantic import BaseModel,EmailStr
@@ -26,8 +26,8 @@ async def query(session : AsyncSession = Depends(get_session)):
 @router.delete("/reset-db")
 async def reset_db(session: AsyncSession = Depends(get_session)):
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
+        await conn.run_sync(models.Base.metadata.drop_all)
+        await conn.run_sync(models.Base.metadata.create_all)
     return {"message": "All tables dropped and recreated successfully ✅"}
 
 @router.post('/submit_suggestion')
