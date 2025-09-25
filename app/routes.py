@@ -1,6 +1,7 @@
 import uuid
 from . import models
 from .database import get_session
+from sqlalchemy.future import select
 from fastapi import APIRouter,Depends
 from pydantic import BaseModel,EmailStr
 from sqlalchemy.exc import IntegrityError
