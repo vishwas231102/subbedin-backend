@@ -23,6 +23,13 @@ async def query(session : AsyncSession = Depends(get_session)):
     users = result.scalars().all()
     return users
 
+@router.delete("/reset-db")
+async def reset_db(session: AsyncSession = Depends(get_session)):
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.create_all)
+    return {"message": "All tables dropped and recreated successfully ✅"}
+
 @router.post('/submit_suggestion')
 async def submit_suggestion(suggestion_data : SuggestionValidator,session : AsyncSession = Depends(get_session)):
     new_suggestion = models.Suggestion(
