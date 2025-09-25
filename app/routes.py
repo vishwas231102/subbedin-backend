@@ -17,13 +17,6 @@ class UserValidator(BaseModel):
     name: str
     email: EmailStr
 
-# @router.delete("/reset-db")
-# async def reset_db(session: AsyncSession = Depends(get_session)):
-#     async with engine.begin() as conn:
-#         await conn.run_sync(models.Base.metadata.drop_all)
-#         await conn.run_sync(models.Base.metadata.create_all)
-#     return {"message": "All tables dropped and recreated successfully ✅"}
-
 @router.get('/')
 async def test():
     return{
