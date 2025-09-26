@@ -17,11 +17,17 @@ class UserValidator(BaseModel):
     name: str
     email: EmailStr
 
-@router.post('/')
+@router.get('/')
+async def server_check():
+    return{
+        "message" : "We are live !"
+    }
+
+@router.post('/server_check')
 async def server_check(request : Request):
     json_payload = request.json()
     return{
-        "message" : f"{json_payload.message}We are live !"
+        "message" : f"{json_payload.message}We are still live !"
     }
 
 @router.post('/submit_suggestion')
