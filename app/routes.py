@@ -4,8 +4,8 @@ from sqlalchemy.future import select
 from pydantic import BaseModel,EmailStr
 from .database import get_session,engine
 from sqlalchemy.exc import IntegrityError
-from fastapi import APIRouter,Depends,Request
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter,Depends,Request,Response
 
 router = APIRouter()
 
@@ -18,14 +18,12 @@ class UserValidator(BaseModel):
     email: EmailStr
 
 @router.get('/')
-async def server_check():
-    return{
-        "message" : "We are live !"
-    }
+async def base():
+    return Response(status_code=200)
 
 @router.post('/server_check')
 async def server_check(request : Request):
-    json_payload = request.json()
+    json_payload = await request.json()
     return{
         "message" : f"{json_payload.message}We are still live !"
     }
