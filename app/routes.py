@@ -17,7 +17,7 @@ class UserValidator(BaseModel):
     name: str
     email: EmailStr
 
-@router.head('/')
+@router.get('/')
 async def base():
     return Response(status_code=200)
 
@@ -25,7 +25,7 @@ async def base():
 async def server_check(request : Request):
     json_payload = await request.json()
     return{
-        "message" : f"{json_payload.message}We are still live !"
+        "message" : f"{json_payload["message"]}We are still live !"
     }
 
 @router.post('/submit_suggestion')
