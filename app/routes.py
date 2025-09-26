@@ -17,7 +17,7 @@ class UserValidator(BaseModel):
     name: str
     email: EmailStr
 
-@router.get('/')
+@router.head('/')
 async def base():
     return Response(status_code=200)
 
