@@ -1,10 +1,10 @@
 import uuid
 from . import models
-from .database import get_session,engine
 from sqlalchemy.future import select
-from fastapi import APIRouter,Depends
 from pydantic import BaseModel,EmailStr
+from .database import get_session,engine
 from sqlalchemy.exc import IntegrityError
+from fastapi import APIRouter,Depends,Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
 router = APIRouter()
@@ -17,10 +17,11 @@ class UserValidator(BaseModel):
     name: str
     email: EmailStr
 
-@router.get('/')
-async def test():
+@router.post('/')
+async def server_check(request : Request):
+    json_payload = request.json()
     return{
-        "message" : "testing"
+        "message" : f"{json_payload.message}We are live !"
     }
 
 @router.post('/submit_suggestion')
