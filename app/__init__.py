@@ -8,11 +8,12 @@ fastapi_app = FastAPI()
 
 # Add the CORS middleware before you define your routes
 fastapi_app.add_middleware(
-    CORSMiddleware,    
+    CORSMiddleware,
+    allow_origins=["*"],    
     allow_methods=["*"],              
     allow_headers=["*"],
     allow_credentials=True,
-    allow_origins=["www.subbedin.com"]             
+                 
 )
 
 # Include routes
