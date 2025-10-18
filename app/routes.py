@@ -1,8 +1,7 @@
 import uuid
 from . import models
-from sqlalchemy.future import select
 from pydantic import BaseModel,EmailStr
-from .database import get_session,engine
+from .database import get_session
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter,Depends,Request,Response
